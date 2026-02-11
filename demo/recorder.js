@@ -35,9 +35,12 @@ class CanvasRecorder {
             fastStart: 'in-memory',
         });
 
+        this.finalized = false;
         this.videoEncoder = new VideoEncoder({
             output: (chunk, meta) => {
-                this.muxer.addVideoChunk(chunk, meta);
+                if (!this.finalized) {
+                    this.muxer.addVideoChunk(chunk, meta);
+                }
             },
             error: (e) => {
                 console.error('VideoEncoder error:', e);
@@ -121,6 +124,7 @@ class CanvasRecorder {
             }
         }
         if (this.muxer) {
+            this.finalized = true;
             this.muxer.finalize();
             this.saveRecording();
         }
