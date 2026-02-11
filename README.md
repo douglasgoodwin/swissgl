@@ -6,6 +6,19 @@ SwissGL is a minimalistic wrapper on top of WebGL2 JS API. It's designed to redu
 
 **Disclaimer** This is not an officially supported Google product. SwissGL is an early stage experiment, incomplete and unstable. It's an invitation to discuss compact and expressive graphics library design, which I hope is relevant in light of the upcoming arrival of WebGPU.
 
+## Development
+
+```
+npm install
+npm run dev
+```
+
+This starts a [Vite](https://vite.dev/) dev server with hot reload. Open the displayed URL to view the demo gallery.
+
+### Recording
+
+The demo page includes a video recording button (bottom-right, red dot) that captures H.264 MP4 video using the WebCodecs API. You can also press **R** to toggle recording.
+
 ## Quickstart
 
 As of now, the library API consists of a single function object that does everything (like a Swiss Army knife). Here is a tiny example of using it to draw an animated gradient quad:

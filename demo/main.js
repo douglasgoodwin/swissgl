@@ -14,7 +14,7 @@ class DemoApp {
 
         this.canvas = document.getElementById('c');
         const gl = this.canvas.getContext('webgl2', {alpha:false, antialias:true,
-            xrCompatible:true});
+            xrCompatible:true, preserveDrawingBuffer:true});
         this.glsl = SwissGL(gl);
         this.demo = null;
         this.gui = null;
@@ -147,9 +147,10 @@ class DemoApp {
         requestAnimationFrame(this.frame.bind(this));
         if (this.xrSession) return; // skip canvas frames when XR is running
         this.glsl.adjustCanvas();
+        this.glsl({Clear:0});
         this.viewParams.canvasSize.set([this.canvas.clientWidth, this.canvas.clientHeight]);
         this.viewParams.DPR = window.devicePixelRatio;
-        
+
         this.demo.frame(this.withCamera, {
             time:t/1000.0, xrMode: false,
             ...this.viewParams,
@@ -313,6 +314,18 @@ class DemoApp {
         const {canvas} = this;
         const f = canvas.requestFullscreen || canvas.webkitRequestFullscreen;
         if (f) f.apply(canvas);
+    }
+
+    toggleRecord() {
+        if (!this.recorder) {
+            const btn = $('#recordButton');
+            this.recorder = new CanvasRecorder(this.canvas, {
+                onStateChange: (recording) => {
+                    if (btn) btn.classList.toggle('recording', recording);
+                }
+            });
+        }
+        this.recorder.toggle();
     }
 
 }

@@ -8,6 +8,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "dev": "vite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/google/swissgl/issues"
   },
-  "homepage": "https://github.com/google/swissgl#readme"
+  "homepage": "https://github.com/google/swissgl#readme",
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
 }

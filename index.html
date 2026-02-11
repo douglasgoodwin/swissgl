@@ -7,6 +7,8 @@
 <script src='swissgl.js'></script>
 <script src='audio.js'></script>
 <script src="demo/dat.gui.min.js"> </script>
+<script src="demo/mp4-muxer.js"></script>
+<script src="demo/recorder.js"></script>
 
 <script src='demo/NeuralCA.js'></script>
 <script src='demo/BitField.js'></script>
@@ -46,6 +48,7 @@
         <button title="AR" onclick="toggleAR()" id="arButton">AR</button>
         <button title="settings" onclick="toggleGui()" id="settingButton" style="font-size: 180%;">⛯</button>
         <button title="source code"><a id='sourceLink' href="" target="_blank">&lt;&gt;</a></button>
+        <button title="Record video (R)" onclick="toggleRecord()" id="recordButton"></button>
         <button title="fullscreen" onclick="fullscreen()"">⛶</button>
     </div>
 </div>
@@ -77,6 +80,9 @@
     function toggleGui() {
         app.toggleGui();
     }
+    function toggleRecord() {
+        app.toggleRecord();
+    }
     function toggleVR() {
         app.toggleXR('vr');
     }
@@ -94,5 +100,8 @@
         }
     })
     $('#panel').addEventListener('click', hideAbout);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'r' || e.key === 'R') app.toggleRecord();
+    });
 
 </script>

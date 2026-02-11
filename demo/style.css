@@ -79,6 +79,39 @@ a {
     color: aquamarine;
 }
 
+#recordButton {
+    width: 44px;
+    height: 44px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    min-width: unset;
+}
+#recordButton::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background: #e53935;
+    border-radius: 50%;
+    transition: all 0.2s;
+}
+#recordButton.recording {
+    border-color: #e53935;
+    animation: pulse 1s ease-in-out infinite;
+}
+#recordButton.recording::after {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+}
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(229, 57, 53, 0); }
+}
+
 #about {
     width: 90%;
     max-width: 400px;
