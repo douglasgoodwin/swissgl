@@ -6,15 +6,38 @@
 class DotCamera {
     constructor(glsl, gui) {
         this.video = document.createElement('video');
+        this.video.loop = true;
+        this.video.muted = true;
         this.dayMode = false; gui.add(this, 'dayMode');
         this.rgbMode = false; gui.add(this, 'rgbMode');
-        navigator.mediaDevices.getUserMedia({ video: true })
-          .then((stream) => {
-            this.video.srcObject = stream;
-            this.video.play();
-          }).catch((error) => {
-            console.log('Error accessing camera:', error);
-          });
+        this.useCamera = ()=>{
+            navigator.mediaDevices.getUserMedia({ video: true })
+              .then((stream) => {
+                this.video.srcObject = stream;
+                this.video.play();
+              }).catch((error) => {
+                console.log('Error accessing camera:', error);
+              });
+        };
+        this.loadVideo = ()=>{
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'video/*';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                if (this.video.srcObject) {
+                    this.video.srcObject.getTracks().forEach(t=>t.stop());
+                    this.video.srcObject = null;
+                }
+                this.video.src = URL.createObjectURL(file);
+                this.video.play();
+            };
+            input.click();
+        };
+        gui.add(this, 'useCamera');
+        gui.add(this, 'loadVideo');
+        this.useCamera();
     }
 
     frame(glsl, {time, canvasSize, DPR}) {

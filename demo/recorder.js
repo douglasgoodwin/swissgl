@@ -46,7 +46,7 @@ class CanvasRecorder {
         });
 
         const config = {
-            codec: 'avc1.640028',
+            codec: 'avc1.640033',
             width: encodedWidth,
             height: encodedHeight,
             bitrate: this.bitrate,
@@ -112,8 +112,10 @@ class CanvasRecorder {
         }
         if (this.videoEncoder) {
             try {
-                await this.videoEncoder.flush();
-                this.videoEncoder.close();
+                if (this.videoEncoder.state !== 'closed') {
+                    await this.videoEncoder.flush();
+                    this.videoEncoder.close();
+                }
             } catch (e) {
                 console.error('Encoder flush error:', e);
             }

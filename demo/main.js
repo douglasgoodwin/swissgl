@@ -146,10 +146,9 @@ class DemoApp {
     frame(t) {
         requestAnimationFrame(this.frame.bind(this));
         if (this.xrSession) return; // skip canvas frames when XR is running
-        this.glsl.adjustCanvas();
         this.glsl({Clear:0});
-        this.viewParams.canvasSize.set([this.canvas.clientWidth, this.canvas.clientHeight]);
-        this.viewParams.DPR = window.devicePixelRatio;
+        this.viewParams.canvasSize.set([this.canvas.width, this.canvas.height]);
+        this.viewParams.DPR = 1;
 
         this.demo.frame(this.withCamera, {
             time:t/1000.0, xrMode: false,
